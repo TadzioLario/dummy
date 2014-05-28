@@ -1,15 +1,13 @@
-var express = require('express');
-var fs = require('fs');
-var htmlfile = "index.html";
+var express = require('express')
+var app = express();
 
-var app = express.createServer(express.logger()); 
+app.set('port', (process.env.PORT || 5000))
+app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(request, response) {
-var html = fs.readFileSync(htmlfile).toString();
-response.send(html);
-});
+  response.send('Hello World essai!')
+})
 
-var port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log("Listening on " + port);
-});
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'))
+})
